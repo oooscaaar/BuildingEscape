@@ -24,10 +24,7 @@ void UOpenDoor::BeginPlay()
 	InitialYaw = GetOwner()->GetActorRotation().Yaw;
 	CurrentYaw = InitialYaw;
 	DoorOpenAngle += InitialYaw;
-
 	ActorThatOpens = GetWorld()->GetFirstPlayerController()->GetPawn();
-	UE_LOG(LogTemp, Warning, TEXT("ActorThatOpens: %s"), *ActorThatOpens->GetName());
-
 }
 
 
