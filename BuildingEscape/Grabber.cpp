@@ -53,18 +53,18 @@ void UGrabber::Grab()
 
 	UPrimitiveComponent* ComponentToGrab = HitResult.GetComponent();
 	AActor* ActorHit = HitResult.GetActor();
+
 	// If we hit comething then attach the physics handle.
-	if (!ActorHit)
+	if (ActorHit)
 	{
 		if(!PhysicsHandle){ return; }
 		PhysicsHandle->GrabComponentAtLocation
 		(
-		ComponentToGrab,
-		NAME_None,
-		GetPlayerReach()
+			ComponentToGrab,
+			NAME_None,
+			GetPlayerReach()
 		);
 	}
-
 }
 
 void UGrabber::Release()
@@ -79,40 +79,30 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	if(!PhysicsHandle){ return; }
+	
 	// If the physics handle is attached.
 	if (PhysicsHandle->GrabbedComponent)
 	{
 		// Move the object that we are holding.
 		PhysicsHandle->SetTargetLocation(GetPlayerReach());
 	}
-
 	
 }
 
 FHitResult UGrabber::GetFirstPhysicsBodyInReach() const
 {
-	// DrawDebugLine(
-	// 	GetWorld(),
-	// 	PlayerViewPointLocation, 
-	// 	LineTraceEnd, 
-	// 	FColor(0, 255, 0),
-	// 	false,
-	// 	0.f,
-	// 	0,
-	// 	5.f
-	// );
-
 	FHitResult Hit;
 	// Ray-cast out to a certain distance (Reach)
 	FCollisionQueryParams TraceParams(FName(TEXT("")), false, GetOwner());
 
-	GetWorld()->LineTraceSingleByObjectType(
-		OUT Hit,
-		GetPlayersWorldPos(),
-		GetPlayerReach(),
-		FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody),
-		TraceParams
-	);
+	GetWorld()->LineTraceSingleByObjectType
+		(
+			OUT Hit,
+			GetPlayersWorldPos(),
+			GetPlayerReach(),
+			FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody),
+			TraceParams
+		);
 
 	return Hit;
 }
@@ -136,11 +126,11 @@ FVector UGrabber::GetPlayerReach() const
 	FVector PlayerViewPointLocation;
 	FRotator PlayerViewPointRotation;
 
-	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(
+	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint
+	(
 		OUT PlayerViewPointLocation,
 		OUT PlayerViewPointRotation
 	);
 
-	// Draw a line from player showing the reach.
-	return PlayerViewPointLocation + (PlayerViewPointRotation.Vector() * Reach);
+	return PlayerViewPointLocation + PlayerViewPointRotation.Vector() * Reach;
 }

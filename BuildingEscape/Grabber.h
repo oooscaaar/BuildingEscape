@@ -26,9 +26,11 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	float Reach = 150.f;
-
+	float Reach = 100.f;
+	
+	UPROPERTY()
 	UPhysicsHandleComponent* PhysicsHandle = nullptr;
+	UPROPERTY()
 	UInputComponent * InputComponent = nullptr;
 
 	void Grab();
