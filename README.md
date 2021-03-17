@@ -1,4 +1,4 @@
-# BuildingEscape
+# Building Escape
 
 Building Escape Game Source Code [Unreal Engine 4 & C++]
 <br><br>
@@ -8,7 +8,7 @@ Learning Project from the Udemy Course:<br>
 (https://www.udemy.com/course/unrealcourse/)
 
 
-<b>GamePlay Demo</b>: https://www.youtube.com/watch?v=FJSgnR8cH6E
+<b>Gameplay Demo Video</b>: https://www.youtube.com/watch?v=FJSgnR8cH6E
 
 ![Dungeon Front-Back View](https://i.imgur.com/VkLQaa7.png)
 
